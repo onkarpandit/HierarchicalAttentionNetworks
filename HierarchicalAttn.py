@@ -11,6 +11,7 @@ from keras import backend as K
 from keras.models import Model
 from keras import initializers
 from keras.engine.topology import Layer
+from keras.datasets import imdb
 from keras.layers import Dense, Input
 from keras.layers import Embedding, GRU, Bidirectional, TimeDistributed
 from keras.preprocessing.text import Tokenizer, text_to_word_sequence
@@ -87,7 +88,7 @@ def clean_str(string):
     return string.strip().lower()
 
 
-input_data = pd.read_csv('labeledTrainData.tsv', sep='\t')
+input_data = pd.read_csv('IMDB Dataset.csv', sep='\t')
 
 for idx in range(input_data.review.shape[0]):
     text = BeautifulSoup(input_data.review[idx], features="html5lib")
@@ -131,8 +132,8 @@ x_val = data[-nb_validation_samples:]
 y_val = labels[-nb_validation_samples:]
 
 print('Number of positive and negative reviews in training and validation set')
-print y_train.sum(axis=0)
-print y_val.sum(axis=0)
+print(y_train.sum(axis=0))
+print(y_val.sum(axis=0))
 
 
 f = open(os.path.join(glove_dir, 'glove.6B.100d.txt'))
